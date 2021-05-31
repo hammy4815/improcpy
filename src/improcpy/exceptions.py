@@ -1,0 +1,2 @@
+class ImproperImageFormatException(Exception):
+    pass
