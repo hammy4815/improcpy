@@ -2,8 +2,9 @@ from matplotlib.pyplot import imread
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
-from exceptions import ImproperImageFormatException
-from PIL import Image
+
+class ImproperImageFormatException(Exception):
+    pass
 
 # This decorator is used to prevent or allow changes to Image upon transformations
 def reset_image(func):
@@ -141,7 +142,7 @@ class Image(object):
         return self.image
 
     @reset_image
-    def light_field(h, w, reset=False):
+    def light_field(self, h, w, reset=False):
         """See ImageProcessing.light_field"""
         self.image = ImageProcessing.light_field(self.image, h, w)
         return self.image
@@ -205,19 +206,18 @@ class Image(object):
         """See ImageProcessing.frame"""
         self.image = ImageProcessing.frame(self.image, frame, translate=[0, 0], rotation=0, scale=1)
         return self.image
-    
+
     @reset_image
-    def dft_filter(image, filter):
+    def dft_filter(self, image, filter):
         """See ImageProcessing.dft_filter"""
         self.image = ImageProcessing.dft_filter(self.image, filter)
         return self.image
 
     @reset_image
-    def filter_interference(image):
+    def filter_interference(self, image):
         """See ImageProcessing.filter_interference"""
         self.image = ImageProcessing.filter_interference(self.image)
         return self.image
-
 
 
 class ColorImage(Image):
@@ -407,11 +407,11 @@ class ImageProcessing(object):
         numpy array
             the edited image
         """
-        if c == "r":
+        if color == "r":
             return ImageProcessing.red_channel(image)
-        elif c == "g":
+        elif color == "g":
             return ImageProcessing.green_channel(image)
-        elif c == "b":
+        elif color == "b":
             return ImageProcessing.blue_channel(image)
         else:
             return None
@@ -460,9 +460,9 @@ class ImageProcessing(object):
         if not color:
             return (1e-2 * (c + 100.0)) ** 4 * (image - 128.0) + 128.0
         else:
-            im = toHSB(image)
+            im = ImageProcessing.to_HSB(image)
             im[:, :, 2] = (1e-2 * (c + 100.0)) ** 4 * (im[:, :, 2] - 128.0) + 128.0
-            return np.maximum(np.minimum(toRGB(im), 255), 0)
+            return np.maximum(np.minimum(ImageProcessing.to_RGB(im), 255), 0)
 
     @staticmethod
     @correct_image
@@ -688,7 +688,7 @@ class ImageProcessing(object):
         list [numpy array]
             a list of the output images starting from mostly image1 and ending with mostly image2
         """
-        return [alphaBlend(image1, image2, alpha) for alpha in np.linspace(0, 1, numsteps)]
+        return [ImageProcessing.alpha_blend(image1, image2, alpha) for alpha in np.linspace(0, 1, num_steps)]
 
     @staticmethod
     @correct_image
@@ -940,20 +940,17 @@ class ImageProcessing(object):
         -------
         numpy array
             the edited image
-        """        
-        F = np.fft.fft2(np.array(image, dtype='complex'))
+        """
+        F = np.fft.fft2(np.array(image, dtype="complex"))
 
-        neighboring=np.array([[-1,-1,-1],[-1,1,-1],[-1,-1,-1]])
-        G = ImageProcessing.convolution(np.abs(F),neighboring) 
+        neighboring = np.array([[-1, -1, -1], [-1, 1, -1], [-1, -1, -1]])
+        G = ImageProcessing.convolution(np.abs(F), neighboring)
 
-        blur_kernel = np.matrix([[1, 1, 1],[1, 1, 1],[1, 1, 1]]) / 9.0
+        blur_kernel = np.matrix([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9.0
         average = ImageProcessing.convolution(F, blur_kernel)
 
         G = np.where(G > 0, average, F)
 
-        g = np.fft.ifft2( G )
-        return np.minimum(np.maximum(np.real(g),0),255)
-
-
-
+        g = np.fft.ifft2(G)
+        return np.minimum(np.maximum(np.real(g), 0), 255)
 
