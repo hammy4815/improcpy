@@ -1,8 +1,8 @@
 from matplotlib.pyplot import imread
 import matplotlib.pyplot as plt
 import numpy as np
-from image import ColorImage, GrayImage
-from image import ImageProcessing as ip
+from improcpy.image import ColorImage, GrayImage
+from improcpy.image import ImageProcessing as ip
 
 
 class Testing(object):

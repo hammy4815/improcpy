@@ -2,12 +2,16 @@ from matplotlib.pyplot import imread
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
+from functools import wraps
+
 
 class ImproperImageFormatException(Exception):
     pass
 
+
 # This decorator is used to prevent or allow changes to Image upon transformations
 def reset_image(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         returned_image = func(*args, **kwargs)
         if kwargs.get("reset", None) or args[-1] == True:
@@ -21,6 +25,7 @@ def reset_image(func):
 
 # This decorator is used to allow numpy arrays or Image objects inside of ImageProcessing
 def correct_image(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         if isinstance(kwargs.get("image", None), Image):
             image_instance = kwargs.get("image", None)
@@ -41,6 +46,7 @@ def correct_image(func):
 
 # This decorator is used to allow numpy arrays or Image objects inside of ImageProcessing for two image inputs
 def correct_images(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         # if isinstance(kwargs.get("image", None), Image):
         #     image_instance = kwargs.get("image", None)
@@ -262,64 +268,6 @@ class GrayImage(Image):
 class ImageProcessing(object):
     """
     A class contains static methods for use in image processing, all methods take in an image input that can either be a numpy array or Image object
-
-    ...
-
-    Methods
-    -------
-    flip(image)
-        ****
-    red_channel(image)
-        ****
-    green_channel(image)
-        ****
-    blue_channel(image)
-        ****
-    color_channel(image,color="r")
-        ****
-    bright_adjust(image,c)
-        ****
-    contrast_adjust(image,c)
-        ****
-    thresholder(image,c)
-        ****
-    cropper(image,width,height,x=0,y=0)
-        ****
-    scaler(image)
-        ****
-    light_field(image,h,w)
-        ****
-    plot_image(image, title="", color=True)
-        ****
-    to_gray_scale(image)
-        ****
-    to_HSB(image)
-        ****
-    to_RGB(image)
-        ****
-    alpha_blend(image1, image2, alpha=0.5)
-        ****
-    cross_dissolve(image1, image2, numsteps=10)
-        ****
-    blur_gray(image, size=3)
-        ****
-    median_filter_gray(image, size=3)
-        ****
-    convolution_gray(image, kernel)
-        ****
-    sharpen_gray(image)
-        ****
-    edge_detect_gray(image)
-        ****
-    compose(image, frame, transformation)
-        ****
-    frame(image, frame, translate=[0, 0], rotation=0, scale=1)
-        ****
-    dft_filter(image, filter)
-        ****
-    filter_interference(image)
-        ****
-    
     """
 
     @staticmethod
