@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; improcpy 05/28/2021 documentation</title>
+  <title>Installation &mdash; improcpy 05/28/2021 documentation</title>
   
 
   
@@ -35,9 +35,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-
+    <link rel="next" title="ImageProcessing" href="image_processing.html" />
+    <link rel="prev" title="Welcome to improcpy’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,8 +81,14 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_processing.html">ImageProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gray_image.html">GrayImage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color_image.html">ColorImage</a></li>
+</ul>
+
             
           
         </div>
@@ -128,10 +133,14 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li>Installation</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -143,40 +152,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-i"><strong>i</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-i"><td></td><td>
-       <strong>i</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">improcpy</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="index.html#module-improcpy.image.Image"><code class="xref">improcpy.image.Image</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="index.html#module-improcpy.image.ImageProcessing"><code class="xref">improcpy.image.ImageProcessing</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The following are the steps to install improcpy:</p>
+<ol class="arabic">
+<li><p>Step 1. improcpy can be imported very easily. First clone the <a class="reference external" href="https://github.com/hammy4815/improcpy">GitHub</a> repo</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:hammy4815/improcpy.git
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Step 2. Ensure <a class="reference external" href="https://pip.pypa.io/en/stable/installing">pip</a> is installed on your machine</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+<li><p>Step 3. Install locally via pip</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -e .
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Step 4. You can now import the different components of improcpy into your python module</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">improcpy</span> <span class="kn">import</span> <span class="n">ImageProcessing</span> <span class="k">as</span> <span class="n">ip</span>
+<span class="kn">from</span> <span class="nn">improcpy</span> <span class="kn">import</span> <span class="n">GrayImage</span><span class="p">,</span> <span class="n">ColorImage</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="image_processing.html" class="btn btn-neutral float-right" title="ImageProcessing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to improcpy’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

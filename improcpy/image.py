@@ -73,6 +73,7 @@ class Image(object):
         self.image = np.array(image)
         self.temp = np.array(image)
         self.default = np.array(image)
+        self.shape = self.image.shape
 
     def __str__(self):
         return str(self.image)
@@ -84,146 +85,176 @@ class Image(object):
             self.image = np.array(image)
         self.temp = np.array(image)
         self.default = np.array(image)
+        self.shape = self.image.shape
 
     def hard_reset(self):
         """Resets the image back to its very beginning"""
         self.image = self.default
+        self.shape = self.image.shape
 
     def soft_reset(self):
         """Resets the image back one step and can only be performed within a method"""
         self.image = self.temp
+        self.shape = self.image.shape
 
     def plot_image(self, title=""):
+        """Plots the image for use with users pyplot configurations"""
         ImageProcessing.plot_image(self.image, title, color=isinstance(self, ColorImage))
 
-    def plot_image_full(self, title=""):
-        ImageProcessing.plot_image_full(self.image, title, color=isinstance(self, ColorImage))
+    def plot_image_full(self, title="", path=None):
+        """Plots the image and saves it or shows it to the user using pyplot"""
+        ImageProcessing.plot_image_full(self.image, title, color=isinstance(self, ColorImage), path=path)
+
+    def get_numpy():
+        """"Returns the image as a numpy array"""
+        return self.image
 
     @reset_image
     def flip(self, reset=False):
         """See ImageProcessing.flip"""
         self.image = ImageProcessing.flip(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def red_channel(self, reset=False):
         """See ImageProcessing.red_channel"""
         self.image = ImageProcessing.red_channel(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def green_channel(self, reset=False):
         """See ImageProcessing.green_channel"""
         self.image = ImageProcessing.green_channel(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def blue_channel(self, reset=False):
         """See ImageProcessing.blue_channel"""
         self.image = ImageProcessing.blue_channel(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def color_channel(self, color="r", reset=False):
         """See ImageProcessing.color_channel"""
         self.image = ImageProcessing.color_channel(self.image, color)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def thresholder(self, c, reset=False):
         """See ImageProcessing.thresholder"""
         self.image = ImageProcessing.thresholder(self.image, c)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def cropper(self, width, height, x=0, y=0, reset=False):
         """See ImageProcessing.cropper"""
         self.image = ImageProcessing.cropper(self.image, width, height, x, y)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def scaler(self, reset=False):
         """See ImageProcessing.scaler"""
         self.image = ImageProcessing.scaler(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def light_field(self, h, w, reset=False):
         """See ImageProcessing.light_field"""
         self.image = ImageProcessing.light_field(self.image, h, w)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def contrast_adjust(self, c, reset=False):
         """See ImageProcessing.contrast_adjust"""
         self.image = ImageProcessing.contrast_adjust(self.image, c, color=isinstance(self, ColorImage))
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def bright_adjust(self, c, reset=False):
         """See ImageProcessing.bright_adjust"""
         self.image = ImageProcessing.bright_adjust(self.image, c, color=isinstance(self, ColorImage))
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def alpha_blend(self, image2, alpha=0.5):
         """See ImageProcessing.alpha_blend"""
         self.image = ImageProcessing.alpha_blend(self.image, image2, alpha)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def cross_dissolve(self, image2, num_steps=10):
         """See ImageProcessing.cross_dissolve"""
         self.image = ImageProcessing.cross_dissolve(self.image, image2, num_steps)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def blur_gray(self, size=3):
         """See ImageProcessing.blur_gray"""
         self.image = ImageProcessing.blur_gray(self.image, size)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def median_filter_gray(self, size=3):
         """See ImageProcessing.median_filter_gray"""
         self.image = ImageProcessing.median_filter_gray(self.image, size)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def convolution_gray(self, kernel):
         """See ImageProcessing.convolution_gray"""
         self.image = ImageProcessing.convolution_gray(self.image, kernel)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def sharpen_gray(self):
         """See ImageProcessing.sharpen_gray"""
         self.image = ImageProcessing.sharpen_gray(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def edge_detect_gray(self):
         """See ImageProcessing.edge_detect_gray"""
         self.image = ImageProcessing.edge_detect_gray(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def frame(self, frame, translate=[0, 0], rotation=0, scale=1):
         """See ImageProcessing.frame"""
         self.image = ImageProcessing.frame(self.image, frame, translate=[0, 0], rotation=0, scale=1)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def dft_filter(self, image, filter):
         """See ImageProcessing.dft_filter"""
         self.image = ImageProcessing.dft_filter(self.image, filter)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
     @reset_image
     def filter_interference(self, image):
         """See ImageProcessing.filter_interference"""
         self.image = ImageProcessing.filter_interference(self.image)
-        return self.image
+        self.shape = self.image.shape
+        return Image(self.image)
 
 
 class ColorImage(Image):
@@ -522,7 +553,7 @@ class ImageProcessing(object):
 
     @staticmethod
     @correct_image
-    def plot_image_full(image, title="", color=True):
+    def plot_image_full(image, title="", color=True, path=None):
         """Plots an image using matplotlib on a figure created by this method
 
         Parameters
@@ -541,7 +572,10 @@ class ImageProcessing(object):
         else:
             plt.imshow(im, vmin=0, vmax=255, cmap="Greys_r")
         plt.title(title)
-        plt.show()
+        if not path is None:
+            plt.savefig(path)
+        else:
+            plt.show()
 
     @staticmethod
     @correct_image

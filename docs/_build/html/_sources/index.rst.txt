@@ -4,29 +4,14 @@ Welcome to improcpy's documentation!
 Image Processing Python (improcpy) is a package implemented by Ian Hammond for BYU CS 355. Using the code found here, users can easily work with images and manipulate them without the need of a user interface via adobe or some other product. Enjoy!
 
 
-.. autoclass:: improcpy.image.ColorImage
-   :members:
-
-.. autoclass:: improcpy.image.GrayImage
-   :members:
-
-.. autoclass:: improcpy.image.ImageProcessing
-   :members:
-
-.. autoclass:: improcpy.image.Image
-   :members:
-
-
+Improcpy
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   
+   installation
+   image_processing
+   image
+   gray_image
+   color_image
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
